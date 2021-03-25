@@ -100,10 +100,16 @@
 // are sent to the compiler using the "-D flag" (open the "root" Makefile and
 // search for "CCFLAGS" to understand how to do this)
 
-#if !defined(_HOST_IS_LITTLE_ENDIAN_) && !defined(_HOST_IS_BIG_ENDIAN_ENDIAN_)
+#if !defined(_HOST_IS_LITTLE_ENDIAN_) && !defined(_HOST_IS_BIG_ENDIAN_)
 #  error  "You must define either '_HOST_IS_LITTLE_ENDIAN_' or '_HOST_IS_BIG_ENDIAN_'"
-#elif defined(_HOST_IS_LITTLE_ENDIAN_) && defined(_HOST_IS_BIG_ENDIAN_ENDIAN_)
+#elif defined(_HOST_IS_LITTLE_ENDIAN_) && defined(_HOST_IS_BIG_ENDIAN_)
 #  error  "You cannot define both '_HOST_IS_LITTLE_ENDIAN_' and '_HOST_IS_BIG_ENDIAN_' at the same time"
+#endif
+
+#ifdef _HOST_IS_LITTLE_ENDIAN_
+#define _HOST_IS_BIG_ENDIAN_ 0
+#else
+#define _HOST_IS_LITTLE_ENDIAN_ 0
 #endif
 
 #ifndef  MAX_NETWORK_SEGMENT_SIZE

@@ -177,8 +177,7 @@ struct CMDU *_reAssembleFragmentedCMDUs(INT8U *packet_buffer, INT16U len)
                        // which a fragment was received (so that we can free
                        // it when the CMDUs buffer is full)
 
-    } mids_in_flight[MAX_MIDS_IN_FLIGHT] = \
-    {[ 0 ... MAX_MIDS_IN_FLIGHT-1 ] = (struct _midsInFlight) { .in_use = 0 }};
+    } mids_in_flight[MAX_MIDS_IN_FLIGHT];
 
     static INT32U current_age = 0;
 
