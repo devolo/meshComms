@@ -3620,6 +3620,8 @@ INT8U send1905InterfacePowerChangeResponsePacket(char *interface_name, INT16U mi
 
 INT8U sendLLDPBridgeDiscoveryPacket(char *interface_name)
 {
+    INT8U ret;
+
     INT8U  al_mac_address[6];
     INT8U  interface_mac_address[6];
 
@@ -3687,6 +3689,11 @@ INT8U sendLLDPBridgeDiscoveryPacket(char *interface_name)
                                           stream_len))
         {
             PLATFORM_PRINTF_DEBUG_ERROR("Packet could not be sent!\n");
+            ret = 0;
+        }
+        else
+        {
+            ret = 1;
         }
     }
 
@@ -3694,7 +3701,7 @@ INT8U sendLLDPBridgeDiscoveryPacket(char *interface_name)
     //
     free_lldp_PAYLOAD_packet(stream);
 
-    return 1;
+    return ret;
 }
 
 INT8U send1905InterfaceListResponseALME(INT8U alme_client_id)
