@@ -2222,6 +2222,8 @@ INT8U send1905TopologyDiscoveryPacket(char *interface_name, INT16U mid)
     //   - One AL MAC address type TLV
     //   - One MAC address type TLV
 
+    INT8U  ret;
+
     INT8U  interface_mac_address[6];
 
     INT8U  mcast_address[] = MCAST_1905;
@@ -2264,16 +2266,19 @@ INT8U send1905TopologyDiscoveryPacket(char *interface_name, INT16U mid)
     if (0 == send1905RawPacket(interface_name, mid, mcast_address, &discovery_message))
     {
         PLATFORM_PRINTF_DEBUG_ERROR("Could not send the 1905 packet\n");
-        PLATFORM_FREE(discovery_message.list_of_TLVs);
-        return 0;
+        ret = 0;
     }
-    
+    else
+    {
+        ret = 1;
+    }
+
     // Free memory
     //
     _freeLocalAlMacAddressTLV(&al_mac_addr_tlv);
 
     PLATFORM_FREE(discovery_message.list_of_TLVs);
-    return 1;
+    return ret;
 }
 
 INT8U send1905TopologyQueryPacket(char *interface_name, INT16U mid, INT8U *destination_al_mac_address)
@@ -2490,7 +2495,6 @@ INT8U send1905TopologyNotificationPacket(char *interface_name, INT16U mid)
     if (0 == send1905RawPacket(interface_name, mid, mcast_address, &discovery_message))
     {
         PLATFORM_PRINTF_DEBUG_ERROR("Could not send the 1905 packet\n");
-        PLATFORM_FREE(discovery_message.list_of_TLVs);
         ret = 0;
     }
     else
@@ -3366,6 +3370,7 @@ INT8U send1905HighLayerResponsePacket(char *interface_name, INT16U mid, INT8U *d
     //   - Zero or one IPv4 type TLV
     //   - Zero or one IPv6 type TLV
 
+    INT8U ret;
     INT8U total_tlvs;
     INT8U i;
 
@@ -3442,8 +3447,11 @@ INT8U send1905HighLayerResponsePacket(char *interface_name, INT16U mid, INT8U *d
     if (0 == send1905RawPacket(interface_name, mid, destination_al_mac_address, &response_message))
     {
         PLATFORM_PRINTF_DEBUG_ERROR("Could not send packet\n");
-        PLATFORM_FREE(response_message.list_of_TLVs);
-        return 0;
+        ret = 0;
+    }
+    else
+    {
+        ret = 1;
     }
     
     // Free all allocated (and no longer needed) memory
@@ -3456,7 +3464,7 @@ INT8U send1905HighLayerResponsePacket(char *interface_name, INT16U mid, INT8U *d
 
     PLATFORM_FREE(response_message.list_of_TLVs);
 
-    return 1;
+    return ret;
 }
 
 INT8U send1905InterfacePowerChangeRequestPacket(char *interface_name, INT16U mid, INT8U *destination_al_mac_address, INT8U (*remote_interfaces)[6], INT8U *new_states, INT8U nr)
