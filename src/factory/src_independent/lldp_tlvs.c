@@ -235,9 +235,12 @@ INT8U *parse_lldp_TLV_from_packet(INT8U *packet_stream)
 
         default:
         {
-            // Ignore
-            //
-            return NULL;
+            // Ignore by returning the TLV as received (except for first byte = type)
+            // we cannot return NULL, then the whole message would be ignored!
+            INT8U *ret = PLATFORM_MALLOC(len+2);
+            PLATFORM_MEMCPY(ret, packet_stream, len+2);
+            ret[0] = type;
+            return ret;
         }
     }
 
