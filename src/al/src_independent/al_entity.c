@@ -1473,7 +1473,7 @@ INT8U start1905AL(INT8U *al_mac_address, INT8U map_whole_network_flag, char *reg
                                 //
                                 if (0 == send1905TopologyNotificationPacket(ifs_names[i], mid))
                                 {
-                                    PLATFORM_PRINTF_DEBUG_WARNING("Could not send 1905 topology discovery message\n");
+                                    PLATFORM_PRINTF_DEBUG_WARNING("Could not send 1905 topology notification message\n");
                                 }
                             }
                             PLATFORM_FREE_LIST_OF_1905_INTERFACES(ifs_names, ifs_nr);
@@ -1823,7 +1823,7 @@ INT8U start1905AL(INT8U *al_mac_address, INT8U map_whole_network_flag, char *reg
 
                         if (0 == send1905PushButtonJoinNotificationPacket(ifs_names[i], mid, original_al_mac_addr, original_mid, local_mac_addr, new_mac_addr))
                         {
-                            PLATFORM_PRINTF_DEBUG_WARNING("Could not send 1905 topology discovery message\n");
+                            PLATFORM_PRINTF_DEBUG_WARNING("Could not send 1905 button join notification message\n");
                         }
                     }
                 }
@@ -1900,7 +1900,7 @@ INT8U start1905AL(INT8U *al_mac_address, INT8U map_whole_network_flag, char *reg
                     //
                     if (0 == send1905TopologyNotificationPacket(ifs_names[i], mid))
                     {
-                        PLATFORM_PRINTF_DEBUG_WARNING("Could not send 1905 topology discovery message\n");
+                        PLATFORM_PRINTF_DEBUG_WARNING("Could not send 1905 topology notification message\n");
                     }
                 }
                 PLATFORM_FREE_LIST_OF_1905_INTERFACES(ifs_names, ifs_nr);
