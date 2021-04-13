@@ -720,7 +720,7 @@ void _checkForwarding(INT8U *receiving_interface_addr, INT8U *destination_mac_ad
 
             if (0 == send1905RawPacket(ifs_names[i], c->message_id, destination_mac_addr, c))
             {
-                PLATFORM_PRINTF_DEBUG_WARNING("Could not retransmit 1905 message on interface %s\n", x->name);
+                PLATFORM_PRINTF_DEBUG_WARNING("Could not retransmit 1905 message on interface %s\n", ifs_names[i]);
             }
         }
         PLATFORM_FREE_LIST_OF_1905_INTERFACES(ifs_names, ifs_nr);
