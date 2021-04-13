@@ -928,6 +928,10 @@ INT8U **forge_1905_CMDU_from_structure(struct CMDU *memory_structure, INT16U **l
             INT16U  tlv_stream_size;
 
             tlv_stream = forge_1905_TLV_from_structure(memory_structure->list_of_TLVs[i], &tlv_stream_size);
+            if (tlv_stream == NULL) {
+                error = 1;
+                break;
+            }
 
             PLATFORM_MEMCPY(s, tlv_stream, tlv_stream_size);
             PLATFORM_FREE(tlv_stream);
